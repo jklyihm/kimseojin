@@ -66,7 +66,7 @@
     }
 
     /* ─── RANDOM ICONS (default) ─── */
-    .random-img{
+    .random-IMG{
       position:absolute;
       opacity:0;
       cursor:pointer;
@@ -206,7 +206,7 @@
 <body>
 <script>
 /***** FILE ARRAYS *****/
-const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`img/${f}.png`);
+const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`IMG/${f}.png`);
 const treeFiles  = Array.from({length:14},(_,i)=>`tree_${i+1}.${i===0?'JPG':'jpg'}`);
 const humanFiles = Array.from({length:14},(_,i)=>`human_${i+1}.jpg`);
 const gitarFiles = Array.from({length:10},(_,i)=>`gitar_${i+1}.jpg`);
@@ -326,7 +326,7 @@ function initDnjsPage() {
   document.body.className = 'dnjs-page';
   document.body.innerHTML = `
     <div class="dnjs-container">
-      <IMG src="img/sh_1.png" class="dnjs-image" id="dnjsMain">
+      <IMG src="IMG/sh_1.png" class="dnjs-image" id="dnjsMain">
     </div>
   `;
 
