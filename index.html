@@ -66,7 +66,7 @@
     }
 
     /* ─── RANDOM ICONS (default) ─── */
-    .random-IMG{
+    .random-img{
       position:absolute;
       opacity:0;
       cursor:pointer;
@@ -75,10 +75,10 @@
       z-index:3;
       animation:sparkle 1.5s ease-in-out infinite;
     }
-    .random-IMG:hover{
+    .random-img:hover{
         transform:scale(1.25);}  /* Hover scale */
-    .random-IMG::after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,transparent 40%,rgba(255,255,255,.9) 50%,transparent 60%);opacity:0;transform:translateX(-100%) skewX(-20deg);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
-    .random-IMG:hover::after{opacity:1;transform:translateX(100%) skewX(-20deg);}  /* Hologram sweep */
+    .random-img::after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,transparent 40%,rgba(255,255,255,.9) 50%,transparent 60%);opacity:0;transform:translateX(-100%) skewX(-20deg);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
+    .random-img:hover::after{opacity:1;transform:translateX(100%) skewX(-20deg);}  /* Hologram sweep */
 
    @keyframes sparkle {
   0%   { filter: brightness(1) drop-shadow(0 0 0px #fff); transform: scale(1); }
@@ -94,19 +94,19 @@
     #firstMedia{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%) scale(1);width:80vw;max-width:100vw;max-height:80vh;object-fit:contain;cursor:pointer;transition:transform .3s;}
     #firstMedia:hover{transform:translate(-50%,-50%) scale(1.2);}  
     #grid-container{display:none;position:absolute;left:50%;transform:translateX(-50%);width:90vw;display:grid;grid-template-columns:repeat(3,1fr);gap:15px;justify-items:center;}
-    #grid-container IMG{width:auto;height:auto;object-fit:contain;cursor:pointer;transition:transform .3s;}
-    #grid-container IMG:hover{transform:scale(1.2);}
+    #grid-container img{width:auto;height:auto;object-fit:contain;cursor:pointer;transition:transform .3s;}
+    #grid-container img:hover{transform:scale(1.2);}
 
     /* ─── DARL STACK ─── */
     .stacked-gallery section{position:sticky;top:0;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:#004f4f;}
-    .stacked-gallery IMG{max-width:100vw;max-height:100vh;object-fit:contain;}
+    .stacked-gallery img{max-width:100vw;max-height:100vh;object-fit:contain;}
 
     /* ─── GITAR SLIDE + GRID ─── */
     #gitarSlideshow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90vw;display:flex;justify-content:center;align-items:center;}
-    #gitarSlideshow IMG{max-width:100%;max-height:90vh;object-fit:contain;opacity:0;transition:opacity 1s ease-in-out;cursor:pointer;}
+    #gitarSlideshow img{max-width:100%;max-height:90vh;object-fit:contain;opacity:0;transition:opacity 1s ease-in-out;cursor:pointer;}
     #gitarGrid{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90vw;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(2,auto);gap:10px;justify-items:center;align-items:center;}
-    #gitarGrid IMG{width:100%;max-height:30vh;object-fit:contain;cursor:pointer;transition:transform .3s;}
-    #gitarGrid IMG:hover{transform:scale(1.2);}
+    #gitarGrid img{width:100%;max-height:30vh;object-fit:contain;cursor:pointer;transition:transform .3s;}
+    #gitarGrid img:hover{transform:scale(1.2);}
 
     /* ─── LIP SLIDE ─── */
     .lip-container{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;z-index:2;}
@@ -199,14 +199,14 @@
 
     /* ─── MODAL ─── */
     .overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:1000;}
-    .overlay IMG{max-width:90vw;max-height:90vh;object-fit:contain;}
+    .overlay img{max-width:90vw;max-height:90vh;object-fit:contain;}
     .overlay .close-btn{position:absolute;top:20px;right:20px;font-size:2rem;color:#fff;cursor:pointer;}
   </style>
 </head>
 <body>
 <script>
 /***** FILE ARRAYS *****/
-const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`IMG/${f}.png`);
+const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`img/${f}.png`);
 const treeFiles  = Array.from({length:14},(_,i)=>`tree_${i+1}.${i===0?'JPG':'jpg'}`);
 const humanFiles = Array.from({length:14},(_,i)=>`human_${i+1}.jpg`);
 const gitarFiles = Array.from({length:10},(_,i)=>`gitar_${i+1}.jpg`);
@@ -215,7 +215,7 @@ const lipSlides  = Array.from({length:6},(_,i)=>`be_${i+1}.jpg`); // lip page sl
 /***** MODAL *****/
 function showModal(src){
   const o=document.createElement('div');o.className='overlay';
-  const i=document.createElement('IMG');i.src='img/'+src;
+  const i=document.createElement('img');i.src='img/'+src;
   const c=document.createElement('span');c.className='close-btn';c.textContent='✕';
   c.onclick=()=>document.body.removeChild(o);
   o.append(c,i);document.body.appendChild(o);
@@ -228,10 +228,10 @@ function placeImages(){
   const minY=(divider?divider.getBoundingClientRect().bottom:40)+20;
   const margin=20;
   thumbs.forEach(src=>{
-    const IMG=document.createElement('IMG');
-    IMG.src=src;IMG.className='random-IMG';
+    const img=document.createElement('img');
+    img.src=src;img.className='random-img';
     const size=120+Math.random()*80;
-    IMG.style.width=size+'px';
+    img.style.width=size+'px';
     let x,y,tries=0;
     do{
       x=Math.random()*(innerWidth-size);
@@ -239,8 +239,8 @@ function placeImages(){
       tries++;
     }while(tries<100 && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w/2+size/2+margin)));
     placed.push({x,y,w:size});
-    IMG.style.left=x+'px';IMG.style.top=y+'px';
-    IMG.onclick=()=>{
+    img.style.left=x+'px';img.style.top=y+'px';
+    img.onclick=()=>{
          if(src.includes('insta')) {
             window.open('https://www.instagram.com/photo_estj', '_blank');
         }
@@ -255,8 +255,8 @@ function placeImages(){
           location.reload();
         };
 
-    document.body.appendChild(IMG);
-    requestAnimationFrame(()=>IMG.style.opacity=1);
+    document.body.appendChild(img);
+    requestAnimationFrame(()=>img.style.opacity=1);
   });
 }
 
@@ -307,13 +307,13 @@ function initAbangPage(){
   document.body.className='abang-page';
   document.body.innerHTML='';
   const wrap=document.createElement('div');document.body.appendChild(wrap);
-  Array.from({length:5},(_,i)=>`IMG/abang_${i+1}.jpg`).forEach(src=>{
+  Array.from({length:5},(_,i)=>`img/abang_${i+1}.jpg`).forEach(src=>{
     const sec=document.createElement('div');sec.className='abang-section';
-    const IMG=document.createElement('IMG');IMG.src=src;sec.appendChild(IMG);wrap.appendChild(sec);
+    const img=document.createElement('img');img.src=src;sec.appendChild(img);wrap.appendChild(sec);
   });
-  const red=document.createElement('IMG');red.id='redIcon';red.src='IMG/red1.png';
-  red.onmouseenter=()=>red.src='IMG/red2.png';
-  red.onmouseleave=()=>red.src='IMG/red1.png';
+  const red=document.createElement('img');red.id='redIcon';red.src='img/red1.png';
+  red.onmouseenter=()=>red.src='img/red2.png';
+  red.onmouseleave=()=>red.src='img/red1.png';
   red.onclick=()=>{location.hash='';location.reload();};
   document.body.appendChild(red);
   red.onclick = () => {
@@ -326,7 +326,7 @@ function initDnjsPage() {
   document.body.className = 'dnjs-page';
   document.body.innerHTML = `
     <div class="dnjs-container">
-      <IMG src="IMG/sh_1.png" class="dnjs-image" id="dnjsMain">
+      <img src="img/sh_1.png" class="dnjs-image" id="dnjsMain">
     </div>
   `;
 
@@ -349,22 +349,22 @@ function initDnjsPage() {
     mainImage.style.opacity = '0';
 
     setTimeout(() => {
-      mainImage.src = `IMG/${imageList[index]}`;
+      mainImage.src = `img/${imageList[index]}`;
       mainImage.onload = () => {
         mainImage.style.opacity = '1';
       };
     }, 300);
   });
       const smallIcon = document.createElement('img');
-  smallIcon.src = 'IMG/dnjs_1.png';
+  smallIcon.src = 'img/dnjs_1.png';
   smallIcon.className = 'dnjs-corner-icon';
 
   smallIcon.addEventListener('mouseenter', () => {
-    smallIcon.src = 'IMG/dnjs_2.png';
+    smallIcon.src = 'img/dnjs_2.png';
   });
 
   smallIcon.addEventListener('mouseleave', () => {
-    smallIcon.src = 'IMG/dnjs_1.png';
+    smallIcon.src = 'img/dnjs_1.png';
   });
 
   smallIcon.addEventListener('click', () => {
@@ -378,7 +378,7 @@ function initDnjsPage() {
 
 
 function initMediaPage(files, icon1, icon2, pageId) {
-  document.body.innerHTML = `<IMG id="firstMedia" src="IMG/${files[0]}"><div id="grid-container"></div>`;
+  document.body.innerHTML = `<img id="firstMedia" src="img/${files[0]}"><div id="grid-container"></div>`;
   const first = document.getElementById('firstMedia');
   const grid = document.getElementById('grid-container');
 
@@ -386,11 +386,11 @@ function initMediaPage(files, icon1, icon2, pageId) {
   setTimeout(() => first.style.transform = 'translate(-50%,-50%) scale(.4)', 2000);
 
   first.addEventListener('transitionend', () => {
-    const icon = document.createElement('IMG');
+    const icon = document.createElement('img');
     icon.id = `${pageId}Icon`;
-    icon.src = 'IMG/' + icon1;
-    icon.onmouseenter = () => icon.src = 'IMG/' + icon2;
-    icon.onmouseleave = () => icon.src = 'IMG/' + icon1;
+    icon.src = 'img/' + icon1;
+    icon.onmouseenter = () => icon.src = 'img/' + icon2;
+    icon.onmouseleave = () => icon.src = 'img/' + icon1;
     icon.onclick = () => {
       location.hash = '#default';
       location.reload();
@@ -425,14 +425,14 @@ function initMediaPage(files, icon1, icon2, pageId) {
 function initDarlPage(){
   document.body.className='darl-page';document.body.innerHTML='';
   const gal=document.createElement('div');gal.className='stacked-gallery';
-  Array.from({length:10},(_,i)=>`IMG/darl_${i+1}.jpg`).forEach(src=>{
+  Array.from({length:10},(_,i)=>`img/darl_${i+1}.jpg`).forEach(src=>{
     const sec=document.createElement('section');
-    const IMG=document.createElement('IMG');IMG.src=src;sec.appendChild(IMG);gal.appendChild(sec);
+    const img=document.createElement('img');img.src=src;sec.appendChild(img);gal.appendChild(sec);
   });
   document.body.appendChild(gal);
-  const dk=document.createElement('IMG');dk.id='darlIcon';dk.src='IMG/skql1.png';
-  dk.onmouseenter=()=>dk.src='IMG/skql2.png';
-  dk.onmouseleave=()=>dk.src='IMG/skql1.png';
+  const dk=document.createElement('img');dk.id='darlIcon';dk.src='img/skql1.png';
+  dk.onmouseenter=()=>dk.src='img/skql2.png';
+  dk.onmouseleave=()=>dk.src='img/skql1.png';
   dk.onclick=()=>{location.hash='';location.reload();};
   document.body.appendChild(dk);
   dk.onclick = () => {
@@ -444,29 +444,29 @@ function initDarlPage(){
 function initGitarPage(){
   document.body.className='gitar-page';document.body.innerHTML='';
   const slide=document.createElement('div');slide.id='gitarSlideshow';
-  const IMG=document.createElement('IMG');slide.appendChild(IMG);document.body.appendChild(slide);
-  const gIcon=document.createElement('IMG');gIcon.id='gitarIcon';gIcon.src='IMG/gitar.png';
+  const img=document.createElement('img');slide.appendChild(img);document.body.appendChild(slide);
+  const gIcon=document.createElement('img');gIcon.id='gitarIcon';gIcon.src='img/gitar.png';
   gIcon.onclick=()=>{location.hash='';location.reload();};
   document.body.appendChild(gIcon);
-  IMG.onclick=()=>showModal(IMG.src.replace('IMG/',''));
+  img.onclick=()=>showModal(img.src.replace('img/',''));
   let idx=0;
   function next(){
-    IMG.style.opacity=0;
+    img.style.opacity=0;
     setTimeout(()=>{
       if(idx<gitarFiles.length){
-        IMG.src='IMG/'+gitarFiles[idx++];
-        IMG.onload=()=>{IMG.style.opacity=1;setTimeout(next,2000);}        
+        img.src='img/'+gitarFiles[idx++];
+        img.onload=()=>{img.style.opacity=1;setTimeout(next,2000);}        
       }else{
         slide.remove();
         const grid=document.createElement('div');grid.id='gitarGrid';
         gitarFiles.forEach(src=>{
-          const gi=document.createElement('IMG');gi.src='IMG/'+src;gi.onclick=()=>showModal(src);grid.appendChild(gi);
+          const gi=document.createElement('img');gi.src='img/'+src;gi.onclick=()=>showModal(src);grid.appendChild(gi);
         });
         document.body.appendChild(grid);grid.style.display='grid';
       }
     },1000);
   }
-  IMG.src='IMG/'+gitarFiles[idx++];IMG.onload=()=>{IMG.style.opacity=1;setTimeout(next,2000);}
+  img.src='img/'+gitarFiles[idx++];img.onload=()=>{img.style.opacity=1;setTimeout(next,2000);}
   gIcon.onclick = () => {
   location.hash = '#default';
   location.reload();
@@ -507,12 +507,12 @@ function continueFromIndex() {
 function initLipPage(){
   document.body.className='lip-page';document.body.innerHTML='';
   const cont=document.createElement('div');cont.className='lip-container';document.body.appendChild(cont);
-  const slide=document.createElement('IMG');slide.className='lip-slide lip-first';slide.src='IMG/'+lipSlides[0];cont.appendChild(slide);
+  const slide=document.createElement('img');slide.className='lip-slide lip-first';slide.src='img/'+lipSlides[0];cont.appendChild(slide);
   slide.onload=()=>slide.style.opacity=1;
   // corner icon
-  const icon=document.createElement('IMG');icon.id='lipIcon';icon.src='IMG/lip_1.png';
-  icon.onmouseenter=()=>icon.src='IMG/lip_2.png';
-  icon.onmouseleave=()=>icon.src='IMG/lip_1.png';
+  const icon=document.createElement('img');icon.id='lipIcon';icon.src='img/lip_1.png';
+  icon.onmouseenter=()=>icon.src='img/lip_2.png';
+  icon.onmouseleave=()=>icon.src='img/lip_1.png';
   icon.onclick=()=>{location.hash='#default';location.reload();};
   document.body.appendChild(icon);
   let idx=0;
@@ -523,7 +523,7 @@ function initLipPage(){
       slide.style.opacity=0;
       setTimeout(()=>{
         idx=(idx+1)%lipSlides.length;
-        slide.src='IMG/'+lipSlides[idx];
+        slide.src='img/'+lipSlides[idx];
         slide.onload=()=>{
           slide.style.opacity=1;
           document.body.style.backgroundColor=idx<3?'#87CEEB':'#000';
