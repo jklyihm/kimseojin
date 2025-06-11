@@ -381,7 +381,20 @@ function initMediaPage(files, icon1, icon2, pageId) {
   document.body.innerHTML =
     `<img id="firstMedia" src="img/${files[0]}"><div id="grid-container"></div>`;
 
-  /* ① corner icon – 위 블록 삽입 */
+ const icon = document.createElement('img');
+  icon.id = `${pageId}Icon`;
+  icon.src = 'img/' + icon1;
+  icon.onmouseenter = () => (icon.src = 'img/' + icon2);
+  icon.onmouseleave = () => (icon.src = 'img/' + icon1);
+  icon.onclick = () => { location.hash = '#default'; location.reload(); };
+
+  icon.style.position = 'fixed';
+  icon.style.top  = '10px';
+  icon.style.left = pageId === 'tree'  ? '10px' : '';
+  icon.style.right= pageId === 'human' ? '10px' : '';
+  icon.style.width = '120px';
+  icon.style.zIndex = '999';
+  document.body.appendChild(icon);
 
   const first = document.getElementById('firstMedia');
   const grid  = document.getElementById('grid-container');
@@ -406,32 +419,6 @@ function initMediaPage(files, icon1, icon2, pageId) {
     });
     grid.style.display = 'grid';
   }
-}
-
-
-
-    // ⭐ 위치 및 크기 명시
-    icon.style.position = 'fixed';
-    icon.style.top = '10px';
-    icon.style.left = pageId === 'tree' ? '10px' : '';
-    icon.style.right = pageId === 'human' ? '10px' : '';
-    icon.style.width = '120px';
-    icon.style.zIndex = '999';
-    icon.style.cursor = 'pointer';
-
-    document.body.appendChild(icon);
-
-    const rect = first.getBoundingClientRect();
-    grid.style.top = rect.bottom + 20 + 'px';
-    files.slice(1).forEach(f => {
-      const im = document.createElement('img');
-      im.src = 'img/' + f;
-      im.style.height = rect.height + 'px';
-      im.onclick = () => showModal(f);
-      grid.appendChild(im);
-    });
-    grid.style.display = 'grid';
-  });
 }
 
 
