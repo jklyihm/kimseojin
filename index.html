@@ -223,21 +223,28 @@ function showModal(src){
 
 /***** RANDOM IMAGE PLACEMENT (default) *****/
 function placeImages(){
+  document.querySelectorAll('.random-img').forEach(el => el.remove());
   const placed=[];
   const divider=document.getElementById('divider');
   const minY=(divider?divider.getBoundingClientRect().bottom:40)+20;
   const margin=20;
+  const baseSize = Math.min(innerWidth, innerHeight); // 화면의 짧은 변
+  const maxTry   = 300;   
+  
   thumbs.forEach(src=>{
     const img=document.createElement('img');
     img.src=src;img.className='random-img';
-    const size=120+Math.random()*80;
-    img.style.width=size+'px';
+    
+    const target = Math.max(60, Math.min(baseSize * 0.12, 160));
+    const size   = target * (0.8 + Math.random() * 0.4); // ±20 %
+    img.style.width = size + 'px';
+    
     let x,y,tries=0;
     do{
       x=Math.random()*(innerWidth-size);
-      y=Math.random()*(innerHeight-size-minY)+minY;
+      y=Math.random()*(innerHeight-size-headerY) + headerY;
       tries++;
-    }while(tries<100 && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w/2+size/2+margin)));
+    }while(tries< maxTry && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w+size/2+margin)));
     placed.push({x,y,w:size});
     img.style.left=x+'px';img.style.top=y+'px';
     img.onclick=()=>{
@@ -259,7 +266,12 @@ function placeImages(){
     requestAnimationFrame(()=>img.style.opacity=1);
   });
 }
-
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(placeImages, 150);
+});
+  
 /***** PAGES INITIALISERS *****/
 function initIndexPage(){
   document.body.className='index-page';
