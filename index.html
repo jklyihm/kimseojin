@@ -207,7 +207,7 @@
 <script>
 /***** FILE ARRAYS *****/
 const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`img/${f}.png`);
-const treeFiles  = Array.from({length:14},(_,i)=>`tree_${i+1}.${i===0?'jpg':'jpg'}`);
+const treeFiles  = Array.from({length:14},(_,i)=>`tree_${i+1}.${i===0?'JPG':'jpg'}`);
 const humanFiles = Array.from({length:14},(_,i)=>`human_${i+1}.jpg`);
 const gitarFiles = Array.from({length:10},(_,i)=>`gitar_${i+1}.jpg`);
 const lipSlides  = Array.from({length:6},(_,i)=>`be_${i+1}.jpg`); // lip page slide images
@@ -223,28 +223,21 @@ function showModal(src){
 
 /***** RANDOM IMAGE PLACEMENT (default) *****/
 function placeImages(){
-  document.querySelectorAll('.random-img').forEach(el => el.remove());
   const placed=[];
   const divider=document.getElementById('divider');
   const minY=(divider?divider.getBoundingClientRect().bottom:40)+20;
   const margin=20;
-  const baseSize = Math.min(innerWidth, innerHeight); // 화면의 짧은 변
-  const maxTry   = 300;   
-  
   thumbs.forEach(src=>{
     const img=document.createElement('img');
     img.src=src;img.className='random-img';
-    
-    const target = Math.max(60, Math.min(baseSize * 0.12, 160));
-    const size   = target * (0.8 + Math.random() * 0.4); // ±20 %
-    img.style.width = size + 'px';
-    
+    const size=120+Math.random()*80;
+    img.style.width=size+'px';
     let x,y,tries=0;
     do{
       x=Math.random()*(innerWidth-size);
-      y=Math.random()*(innerHeight-size-minY) + minY;
+      y=Math.random()*(innerHeight-size-minY)+minY;
       tries++;
-    }while(tries< maxTry && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w+size/2+margin)));
+    }while(tries<100 && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w/2+size/2+margin)));
     placed.push({x,y,w:size});
     img.style.left=x+'px';img.style.top=y+'px';
     img.onclick=()=>{
@@ -266,12 +259,7 @@ function placeImages(){
     requestAnimationFrame(()=>img.style.opacity=1);
   });
 }
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(placeImages, 150);
-});
-  
+
 /***** PAGES INITIALISERS *****/
 function initIndexPage(){
   document.body.className='index-page';
