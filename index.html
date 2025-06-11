@@ -507,6 +507,24 @@ function continueFromIndex() {
 
 function initLipPage(){
   document.body.className='lip-page';document.body.innerHTML='';
+  function initLipPage() {
+  document.body.className = 'lip-page';
+  document.body.innerHTML = '';
+    const lipIcon = document.createElement('img');
+    lipIcon.id = 'lipIcon';
+    lipIcon.src = 'img/lip_1.png';
+    lipIcon.style.position = 'fixed';
+    lipIcon.style.top  = '15px';
+    lipIcon.style.right = '15px';
+    lipIcon.style.width = '90px';
+    lipIcon.style.cursor = 'pointer';
+    lipIcon.style.zIndex = '11';
+    lipIcon.style.transition = 'transform .3s';
+    lipIcon.onmouseenter = () => (lipIcon.src = 'img/lip_2.png');
+    lipIcon.onmouseleave = () => (lipIcon.src = 'img/lip_1.png');
+    lipIcon.onclick      = () => { location.hash = '#default'; location.reload(); };
+    document.body.appendChild(lipIcon);
+
   const cont=document.createElement('div');cont.className='lip-container';document.body.appendChild(cont);
   const slide=document.createElement('img');slide.className='lip-slide lip-first';slide.src='img/'+lipSlides[0];cont.appendChild(slide);
   slide.onload=()=>slide.style.opacity=1;
@@ -528,10 +546,8 @@ function initLipPage(){
     },show);
   }
   const icon = document.getElementById('lipIcon');
-  icon.onclick = () => {
     location.hash = '#default';
     location.reload();
-   };
 }
 
 /***** ROUTER *****/
