@@ -206,11 +206,11 @@
 <body>
 <script>
 /***** FILE ARRAYS *****/
-const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>img/${f}.png);
-const treeFiles  = Array.from({length:14},(_,i)=>tree_${i+1}.${i===0?'jpg':'jpg'});
-const humanFiles = Array.from({length:14},(_,i)=>human_${i+1}.jpg);
-const gitarFiles = Array.from({length:10},(_,i)=>gitar_${i+1}.jpg);
-const lipSlides  = Array.from({length:6},(_,i)=>be_${i+1}.jpg); // lip page slide images
+const thumbs = ['lip','tree','abang','darl','dnjs','gitar','human','insta'].map(f=>`img/${f}.png`);
+const treeFiles  = Array.from({length:14},(_,i)=>`tree_${i+1}.${i===0?'jpg':'jpg'}`);
+const humanFiles = Array.from({length:14},(_,i)=>`human_${i+1}.jpg`);
+const gitarFiles = Array.from({length:10},(_,i)=>`gitar_${i+1}.jpg`);
+const lipSlides  = Array.from({length:6},(_,i)=>`be_${i+1}.jpg`); // lip page slide images
 
 /***** MODAL *****/
 function showModal(src){
@@ -307,7 +307,7 @@ function initAbangPage(){
   document.body.className='abang-page';
   document.body.innerHTML='';
   const wrap=document.createElement('div');document.body.appendChild(wrap);
-  Array.from({length:5},(_,i)=>img/abang_${i+1}.jpg).forEach(src=>{
+  Array.from({length:5},(_,i)=>`img/abang_${i+1}.jpg`).forEach(src=>{
     const sec=document.createElement('div');sec.className='abang-section';
     const img=document.createElement('img');img.src=src;sec.appendChild(img);wrap.appendChild(sec);
   });
@@ -324,11 +324,11 @@ function initAbangPage(){
 
 function initDnjsPage() {
   document.body.className = 'dnjs-page';
-  document.body.innerHTML = 
+  document.body.innerHTML = `
     <div class="dnjs-container">
       <img src="img/sh_1.png" class="dnjs-image" id="dnjsMain">
     </div>
-  ;
+  `;
 
   const hint = document.createElement('div');
   hint.className = 'dnjs-hint';
@@ -349,7 +349,7 @@ function initDnjsPage() {
     mainImage.style.opacity = '0';
 
     setTimeout(() => {
-      mainImage.src = img/${imageList[index]};
+      mainImage.src = `img/${imageList[index]}`;
       mainImage.onload = () => {
         mainImage.style.opacity = '1';
       };
@@ -378,7 +378,7 @@ function initDnjsPage() {
 
 
 function initMediaPage(files, icon1, icon2, pageId) {
-  document.body.innerHTML = <img id="firstMedia" src="img/${files[0]}"><div id="grid-container"></div>;
+  document.body.innerHTML = `<img id="firstMedia" src="img/${files[0]}"><div id="grid-container"></div>`;
   const first = document.getElementById('firstMedia');
   const grid = document.getElementById('grid-container');
 
@@ -387,7 +387,7 @@ function initMediaPage(files, icon1, icon2, pageId) {
 
   first.addEventListener('transitionend', () => {
     const icon = document.createElement('img');
-    icon.id = ${pageId}Icon;
+    icon.id = `${pageId}Icon`;
     icon.src = 'img/' + icon1;
     icon.onmouseenter = () => icon.src = 'img/' + icon2;
     icon.onmouseleave = () => icon.src = 'img/' + icon1;
@@ -425,7 +425,7 @@ function initMediaPage(files, icon1, icon2, pageId) {
 function initDarlPage(){
   document.body.className='darl-page';document.body.innerHTML='';
   const gal=document.createElement('div');gal.className='stacked-gallery';
-  Array.from({length:10},(_,i)=>img/darl_${i+1}.jpg).forEach(src=>{
+  Array.from({length:10},(_,i)=>`img/darl_${i+1}.jpg`).forEach(src=>{
     const sec=document.createElement('section');
     const img=document.createElement('img');img.src=src;sec.appendChild(img);gal.appendChild(sec);
   });
