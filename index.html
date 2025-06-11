@@ -510,24 +510,6 @@ function initLipPage(){
   const cont=document.createElement('div');cont.className='lip-container';document.body.appendChild(cont);
   const slide=document.createElement('img');slide.className='lip-slide lip-first';slide.src='img/'+lipSlides[0];cont.appendChild(slide);
   slide.onload=()=>slide.style.opacity=1;
-  // corner icon
-   // ─ corner icon ──────────────────────────────────────────
-  const icon = document.createElement('img');
-  icon.id = `${pageId}Icon`;
-  icon.src = 'img/' + icon1;
-  icon.onmouseenter = () => icon.src = 'img/' + icon2;
-  icon.onmouseleave = () => icon.src = 'img/' + icon1;
-  icon.onclick = () => { location.hash = '#default'; location.reload(); };
-
-  icon.style.position = 'fixed';
-  icon.style.top  = '10px';
-  icon.style.left = pageId === 'tree'  ? '10px' : '';
-  icon.style.right= pageId === 'human' ? '10px' : '';
-  icon.style.width = '120px';
-  icon.style.zIndex = '999';
-  document.body.appendChild(icon);
-  // ────────────────────────────────────────────────────────
-
   let idx=0;
   setTimeout(()=>{slide.classList.remove('lip-first');loopSlides();},2000);
   function loopSlides(){
