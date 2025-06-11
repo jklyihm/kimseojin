@@ -381,27 +381,22 @@ function initMediaPage(files, icon1, icon2, pageId) {
   document.body.innerHTML =
     `<img id="firstMedia" src="img/${files[0]}"><div id="grid-container"></div>`;
 
+  /* ① corner icon – 위 블록 삽입 */
+
   const first = document.getElementById('firstMedia');
   const grid  = document.getElementById('grid-container');
 
   first.onclick = () => showModal(files[0]);
   setTimeout(() => first.style.transform = 'translate(-50%,-50%) scale(.4)', 2000);
 
-  /* ① transitionend → buildGrid */
   first.addEventListener('transitionend', buildGrid);
-
-  /* ② 썸네일이 너무 빨리 로드돼 transitionend 가 안 잡히는 경우 대비 */
   setTimeout(() => !grid.children.length && buildGrid(), 800);
 
-  /* ③ 여기서 buildGrid 실제 정의 */
   function buildGrid() {
-    // 이미 한 번 실행됐다면 다시 만들지 않음
-    if (grid.children.length) return;
-
+    if (grid.children.length) return;              // 중복 방지
     const rect = first.getBoundingClientRect();
     grid.style.top = rect.bottom + 20 + 'px';
 
-    // files.slice(1) : tree_2 ~ tree_13
     files.slice(1).forEach(f => {
       const im = document.createElement('img');
       im.src  = 'img/' + f;
@@ -409,12 +404,10 @@ function initMediaPage(files, icon1, icon2, pageId) {
       im.onclick = () => showModal(f);
       grid.appendChild(im);
     });
-
     grid.style.display = 'grid';
   }
-
-  /* 나머지 아이콘 코드 그대로 … */
 }
+
 
 
     // ⭐ 위치 및 크기 명시
@@ -531,11 +524,23 @@ function initLipPage(){
   const slide=document.createElement('img');slide.className='lip-slide lip-first';slide.src='img/'+lipSlides[0];cont.appendChild(slide);
   slide.onload=()=>slide.style.opacity=1;
   // corner icon
-  const icon=document.createElement('img');icon.id='lipIcon';icon.src='img/lip_1.png';
-  icon.onmouseenter=()=>icon.src='img/lip_2.png';
-  icon.onmouseleave=()=>icon.src='img/lip_1.png';
-  icon.onclick=()=>{location.hash='#default';location.reload();};
+   // ─ corner icon ──────────────────────────────────────────
+  const icon = document.createElement('img');
+  icon.id = `${pageId}Icon`;
+  icon.src = 'img/' + icon1;
+  icon.onmouseenter = () => icon.src = 'img/' + icon2;
+  icon.onmouseleave = () => icon.src = 'img/' + icon1;
+  icon.onclick = () => { location.hash = '#default'; location.reload(); };
+
+  icon.style.position = 'fixed';
+  icon.style.top  = '10px';
+  icon.style.left = pageId === 'tree'  ? '10px' : '';
+  icon.style.right= pageId === 'human' ? '10px' : '';
+  icon.style.width = '120px';
+  icon.style.zIndex = '999';
   document.body.appendChild(icon);
+  // ────────────────────────────────────────────────────────
+
   let idx=0;
   setTimeout(()=>{slide.classList.remove('lip-first');loopSlides();},2000);
   function loopSlides(){
