@@ -242,7 +242,7 @@ function placeImages(){
     let x,y,tries=0;
     do{
       x=Math.random()*(innerWidth-size);
-      y=Math.random()*(innerHeight-size-headerY) + headerY;
+      y=Math.random()*(innerHeight-size-minY) + minY;
       tries++;
     }while(tries< maxTry && placed.some(r=>Math.hypot(r.x-x,r.y-y)<(r.w+size/2+margin)));
     placed.push({x,y,w:size});
